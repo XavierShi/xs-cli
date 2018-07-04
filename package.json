@@ -1,0 +1,19 @@
+{
+  "name": "xs-cli",
+  "version": "1.0.0",
+  "description": "A cli.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XavierShi/xs-cli.git"
+  },
+  "author": "XavierShi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XavierShi/xs-cli/issues"
+  },
+  "homepage": "https://github.com/XavierShi/xs-cli#readme"
+}
