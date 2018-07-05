@@ -1,6 +1,6 @@
 {
   "name": "xs-cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A cli for XavierShi's project.",
   "bin": {
     "xs": "bin/xs.js"
@@ -27,6 +27,7 @@
     "log-symbols": "^2.2.0",
     "ora": "^2.1.0",
     "request": "^2.87.0",
+    "semver": "^5.5.0",
     "tildify": "^1.2.0",
     "user-home": "^2.0.0"
   },

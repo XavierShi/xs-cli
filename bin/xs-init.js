@@ -7,6 +7,7 @@ const home = require('user-home')
 const tildify = require('tildify')
 const inquirer = require('inquirer')
 const logger = require('../lib/logger')
+const checkVersion = require('../lib/check-version')
 const localPath = require('../lib/local-path')
 
 const isLocalPath = localPath.isLocalPath
@@ -97,6 +98,8 @@ function run() {
       logger.fatal('Local template "%s" not found.', template)
     }
   }else{
+    checkVersion(()=>{
 
+    })
   }
 }
