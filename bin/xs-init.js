@@ -1,13 +1,18 @@
 #!/usr/bin/env node
+
+const download = require('download-git-repo')
 const program = require('commander')
 const exists = require('fs').existsSync
 const chalk = require('chalk')
 const path = require('path')
+const ora = require('ora')
 const home = require('user-home')
 const tildify = require('tildify')
 const inquirer = require('inquirer')
+const rm = require('rimraf').sync
 const logger = require('../lib/logger')
 const checkVersion = require('../lib/check-version')
+const generate = require('../lib/generate')
 const localPath = require('../lib/local-path')
 
 const isLocalPath = localPath.isLocalPath
@@ -90,16 +95,58 @@ if (inPlace || exists(to)) {
 function run() {
   // check if template is local
   // 检查本地模板
-  if(isLocalPath(template)){
+  if (isLocalPath(template)) {
     const templatePath = getTemplatePath(template)
     if (exists(templatePath)) {
-
+      console.log('down')
     } else {
       logger.fatal('Local template "%s" not found.', template)
     }
-  }else{
-    checkVersion(()=>{
+  } else {
+    checkVersion(() => {
+      if (!hasSlash) {
+        const officialTemplate = 'xaviershi/xs-tpl-' + template
+        if (template.indexOf('#') !== -1) {
+          downloadAndGenerate(officialTemplate)
+        } else {
+          if (template.indexOf('-2.0') !== -1) {
+            logger.fatal('没有什么2.0，不要想多了。')
+            // warnings.v2SuffixTemplatesDeprecated(template, inPlace ? '' : name)
+            return
+          }
 
+          // warnings.v2BranchIsNowDefault(template, inPlace ? '' : name)
+          downloadAndGenerate(officialTemplate)
+        }
+      } else {
+        downloadAndGenerate(template)
+      }
     })
   }
+}
+
+/**
+ * Download a generate from a template repo.
+ *
+ * @param {String} template
+ */
+
+function downloadAndGenerate (template) {
+  const spinner = ora('downloading template')
+  spinner.start()
+  // Remove if local template exists
+  if (exists(tmp)) rm(tmp)
+  download(template, tmp, { clone }, err => {
+    spinner.stop()
+    if (err) logger.fatal('Failed to download repo ' + template + ': ' + err.message.trim())
+    
+    console.log(name)
+    console.log(tmp)
+    console.log(to)
+    generate(name, tmp, to, err => {
+      if (err) logger.fatal(err)
+      console.log()
+      logger.success('Generated "%s".', name)
+    })
+  })
 }
