@@ -1,6 +1,6 @@
 {
   "name": "xs-cli",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A cli for XavierShi's project.",
   "bin": {
     "xs": "bin/xs.js"

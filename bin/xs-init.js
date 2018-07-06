@@ -140,9 +140,6 @@ function downloadAndGenerate (template) {
     spinner.stop()
     if (err) logger.fatal('Failed to download repo ' + template + ': ' + err.message.trim())
     
-    console.log(name)
-    console.log(tmp)
-    console.log(to)
     generate(name, tmp, to, err => {
       if (err) logger.fatal(err)
       console.log()
